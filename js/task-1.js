@@ -1,19 +1,31 @@
-// Задача 1. Генератор slug
+// Задача 1. Акаунт користувача
 
-function slugify(title) {
-  // Приведення рядка до нижнього регістру
-  const lowerCaseTitle = title.toLowerCase();
+const customer = {
+  username: 'Mango',
+  balance: 24000,
+  discount: 0.1,
+  orders: ['Burger', 'Pizza', 'Salad'],
 
-  // Розбивка рядка на слова за пробілами
-  const words = lowerCaseTitle.split(' ');
+  getBalance() {
+    return this.balance;
+  },
+  getDiscount() {
+    return this.discount;
+  },
+  setDiscount(value) {
+    this.discount = value;
+  },
+  getOrders() {
+    return this.orders;
+  },
+  addOrder(cost, order) {
+    this.balance -= cost - cost * this.discount;
+    this.orders.push(order);
+  },
+};
 
-  // Об'єднання слів, розділяючи їх тире
-  const slug = words.join('-');
-
-  return slug;
-}
-
-console.log(slugify('Arrays for begginers')); // "arrays-for-begginers"
-console.log(slugify('English for developer')); // "english-for-developer"
-console.log(slugify('Ten secrets of JavaScript')); // "ten-secrets-of-javascript"
-console.log(slugify('How to become a JUNIOR developer in TWO WEEKS')); // "how-to-become-a-junior-developer-in-two-weeks"
+customer.setDiscount(0.15);
+console.log(customer.getDiscount()); // 0.15
+customer.addOrder(5000, 'Steak');
+console.log(customer.getBalance()); // 19750
+console.log(customer.getOrders()); // ["Burger", "Pizza", "Salad", "Steak"]
